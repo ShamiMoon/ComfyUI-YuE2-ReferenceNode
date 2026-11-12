@@ -1,25 +1,13 @@
 # ComfyUI YuE2 Reference Node
 
-An independent ComfyUI custom node for reference-conditioned YuE2 generation.
+This repository currently packages the native ComfyUI node layer from T8mars/Comfyui-YuE2-T8.
+It connects to the T8 YuE2 service on `http://127.0.0.1:8189` by default.
 
-Install by placing this directory under `ComfyUI/custom_nodes/`. The node follows
-ComfyUI's native `AUDIO` object (`waveform` plus `sample_rate`) and submits a JSON
-request to a local YuE2 worker. The worker is intentionally separate because the
-YuE2/SheetSage2 dependency set should not be imported into ComfyUI's process.
+Install this directory under `ComfyUI/custom_nodes/` and restart ComfyUI. Install and start the
+T8 YuE2 runtime/service separately; the custom node layer alone does not contain model weights or
+the service runtime.
 
-The worker endpoint must accept:
+Included nodes cover YuE2 model service, song generation, transcription, melody remake, reference
+voice cover, RVC, style training, staged semantic/synthesis/decode, and artifact export.
 
-```json
-{
-  "lyrics": "...",
-  "style_prompt": "...",
-  "reference_strength": 0.75,
-  "melody_strength": 1.0,
-  "style_strength": 1.0,
-  "reference_audio_wav_base64": "..."
-}
-```
-
-and return `{ "audio_wav_base64": "..." }`. The strength fields are explicit
-conditioning controls; the worker must map them to its actual melody/audio adapter or
-LoRA implementation rather than treating them as prompt text.
+Source: https://github.com/T8mars/Comfyui-YuE2-T8
